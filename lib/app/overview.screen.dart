@@ -5,6 +5,14 @@ class OverviewScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return ListView(
+      children: [
+        Text(
+          "Home",
+          style: Theme.of(context).textTheme.headlineLarge,
+        ),
+        const Divider(thickness: 3),
+      ],
+    );
   }
 }

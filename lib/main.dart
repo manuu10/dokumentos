@@ -16,6 +16,7 @@ class MyApp extends StatelessWidget {
       routerConfig: AppRouter.router,
       title: 'Dokumentos',
       theme: ThemeData.dark().copyWith(
+        primaryColor: Color.fromARGB(255, 115, 66, 248),
         scaffoldBackgroundColor: Colors.black,
         textTheme: GoogleFonts.chakraPetchTextTheme(ThemeData.dark().textTheme),
       ),

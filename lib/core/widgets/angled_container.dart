@@ -36,33 +36,36 @@ class AngledContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomPaint(
-      painter: CustomAngledPainter(
-        inset: borderInset,
-        borderColor: borderColor,
-        borderBottom: borderBottom,
-        borderLeft: borderLeft,
-        borderRight: borderRight,
-        borderTop: borderTop,
-        topLeft: angleTopLeft,
-        topRight: angleTopRight,
-        bottomLeft: angleBottomLeft,
-        bottomRight: angelBottomRight,
-        width: borderWidth,
-      ),
-      child: ClipPath(
-        clipper: CustomAngledClipper(
-            inset: borderInset,
-            topLeft: angleTopLeft,
-            topRight: angleTopRight,
-            bottomLeft: angleBottomLeft,
-            bottomRight: angelBottomRight),
-        child: Container(
-          decoration: BoxDecoration(
-            color: backgroundColor,
-            gradient: gradient,
+    return Padding(
+      padding: EdgeInsets.all(borderWidth),
+      child: CustomPaint(
+        painter: CustomAngledPainter(
+          inset: borderInset,
+          borderColor: borderColor,
+          borderBottom: borderBottom,
+          borderLeft: borderLeft,
+          borderRight: borderRight,
+          borderTop: borderTop,
+          topLeft: angleTopLeft,
+          topRight: angleTopRight,
+          bottomLeft: angleBottomLeft,
+          bottomRight: angelBottomRight,
+          width: borderWidth,
+        ),
+        child: ClipPath(
+          clipper: CustomAngledClipper(
+              inset: borderInset,
+              topLeft: angleTopLeft,
+              topRight: angleTopRight,
+              bottomLeft: angleBottomLeft,
+              bottomRight: angelBottomRight),
+          child: Container(
+            decoration: BoxDecoration(
+              color: backgroundColor,
+              gradient: gradient,
+            ),
+            child: child,
           ),
-          child: child,
         ),
       ),
     );

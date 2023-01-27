@@ -1,4 +1,4 @@
-import 'package:dokumentos/core/angled_widgets/angled_container.dart';
+import 'package:dokumentos/core/widgets/angled_container.dart';
 import 'package:flutter/material.dart';
 
 class SideMenu extends StatelessWidget {

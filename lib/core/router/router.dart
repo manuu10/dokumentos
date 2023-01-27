@@ -2,6 +2,7 @@ import 'package:dokumentos/app/import_new_document.screen.dart';
 import 'package:dokumentos/app/overview.screen.dart';
 import 'package:dokumentos/app/settings.screen.dart';
 import 'package:dokumentos/home.screen.dart';
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 abstract class AppRouter {
@@ -19,18 +20,43 @@ abstract class AppRouter {
         routes: [
           GoRoute(
             path: rMain,
-            builder: (context, state) => const OverviewScreen(),
+            pageBuilder: (context, state) =>
+                buildPageWithDefaultTransition<void>(
+                    context: context,
+                    state: state,
+                    child: const OverviewScreen()),
           ),
           GoRoute(
             path: rImportDoc,
-            builder: (context, state) => const ImportNewDocumentScreen(),
+            pageBuilder: (context, state) =>
+                buildPageWithDefaultTransition<void>(
+                    context: context,
+                    state: state,
+                    child: const ImportNewDocumentScreen()),
           ),
           GoRoute(
             path: rSettings,
-            builder: (context, state) => const SettingsScreen(),
+            pageBuilder: (context, state) =>
+                buildPageWithDefaultTransition<void>(
+                    context: context,
+                    state: state,
+                    child: const SettingsScreen()),
           )
         ],
       )
     ],
   );
+
+  static CustomTransitionPage buildPageWithDefaultTransition<T>({
+    required BuildContext context,
+    required GoRouterState state,
+    required Widget child,
+  }) {
+    return CustomTransitionPage<T>(
+      key: state.pageKey,
+      child: child,
+      transitionsBuilder: (context, animation, secondaryAnimation, child) =>
+          FadeTransition(opacity: animation, child: child),
+    );
+  }
 }

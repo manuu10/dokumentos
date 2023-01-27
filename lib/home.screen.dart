@@ -5,17 +5,12 @@ import 'package:dokumentos/core/router/router.dart';
 import 'package:dokumentos/core/sidemenu/sidemenu.dart';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:go_router/go_router.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key, this.body}) : super(key: key);
-
   final Widget? body;
-
-  Color? resolveColor(bool active) =>
-      active ? Colors.purple.withOpacity(0.3) : null;
-
   @override
   Widget build(BuildContext context) {
     final router = GoRouter.of(context);
@@ -25,37 +20,29 @@ class HomeScreen extends StatelessWidget {
         children: [
           SideMenu(
             footer: AngledCornerButton(
-              borderHoverColor: Colors.grey,
-              backgroundColor:
-                  resolveColor(router.location == AppRouter.rSettings),
+              primaryColor: Colors.grey,
+              disableBackground: router.location != AppRouter.rSettings,
+              icon: const Icon(FeatherIcons.settings),
               child: const Text("Settings"),
               onTap: () => context.go(AppRouter.rSettings),
             ),
             children: [
               AngledCornerButton(
+                primaryColor: Colors.green,
+                disableBackground: router.location != AppRouter.rImportDoc,
+                icon: const Icon(FeatherIcons.plus),
                 connectTop: true,
-                borderHoverColor: Colors.purple,
-                backgroundColor:
-                    resolveColor(router.location == AppRouter.rImportDoc),
                 onTap: () => context.go(AppRouter.rImportDoc),
                 child: const Text("Import new Document"),
               ),
               const SizedBox(height: 10),
               AngledCornerButton(
-                borderHoverColor: Colors.purple,
-                backgroundColor:
-                    resolveColor(router.location == AppRouter.rMain),
+                primaryColor: Colors.grey,
+                disableBackground: router.location != AppRouter.rMain,
+                icon: const Icon(FeatherIcons.home),
                 child: const Text("Home"),
                 onTap: () => context.go(AppRouter.rMain),
               ),
-              const SizedBox(height: 10),
-              AngledCornerButton(
-                connectBottom: true,
-                borderHoverColor: Colors.purple,
-                backgroundColor: resolveColor(false),
-                child: const Text("dingsdongs"),
-                onTap: () {},
-              )
             ],
           ),
           SizedBox(width: 10),
