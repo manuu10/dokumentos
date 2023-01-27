@@ -149,6 +149,10 @@ class CustomAngledPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
+    if (width <= 0 ||
+        borderColor == null ||
+        borderColor == Colors.transparent ||
+        (!borderBottom && !borderLeft && !borderRight && !borderTop)) return;
     final topLeftC =
         AngleClipperRaw.getTopLeftCorner(size, topLeft ? inset : 0);
     final bottomLeftC =
