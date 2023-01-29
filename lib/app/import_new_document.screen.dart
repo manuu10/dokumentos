@@ -1,9 +1,11 @@
 import 'package:dokumentos/core/widgets/angled_container.dart';
 import 'package:dokumentos/core/widgets/angled_filepicker.dart';
+import 'package:dokumentos/core/widgets/angled_tag_input.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_quill/flutter_quill.dart' as q;
 
-class ImportNewDocumentScreen extends StatefulWidget {
+class ImportNewDocumentScreen extends StatefulHookWidget {
   const ImportNewDocumentScreen({super.key});
 
   @override
@@ -15,6 +17,7 @@ class _ImportNewDocumentScreenState extends State<ImportNewDocumentScreen> {
   q.QuillController _controller = q.QuillController.basic();
   @override
   Widget build(BuildContext context) {
+    final selectedTags = useState(<DocumentTag>[]);
     return ListView(
       children: [
         Text(
@@ -45,30 +48,24 @@ class _ImportNewDocumentScreenState extends State<ImportNewDocumentScreen> {
           ),
         ),
         const SizedBox(height: 20),
-        Wrap(
-          spacing: 10,
-          runSpacing: 10,
-          children: [
-            for (var tag in [
-              "Rechnung",
-              "Lohnabrechnung",
-              "Versicherung",
-              "Verträge"
-            ])
-              AngledContainer(
-                borderWidth: 2,
-                borderBottom: true,
-                backgroundColor:
-                    Theme.of(context).primaryColor.withOpacity(0.3),
-                borderColor: Theme.of(context).primaryColor,
-                borderInset: 4,
-                child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4),
-                  child: Text(tag),
-                ),
-              ),
+        AngledTagInput(
+          available: [
+            DocumentTag(color: Colors.yellow, title: "Rechnung"),
+            DocumentTag(color: Colors.red, title: "Lohnabrechnung"),
+            DocumentTag(color: Colors.green, title: "Versicherung"),
+            DocumentTag(color: Colors.blue, title: "Vertrag"),
           ],
+          selected: selectedTags.value,
+          onTap: (tag) {
+            if (selectedTags.value
+                .any((element) => element.title == tag.title)) {
+              selectedTags.value = selectedTags.value
+                  .where((element) => element.title != tag.title)
+                  .toList();
+              return;
+            }
+            selectedTags.value = [...selectedTags.value, tag];
+          },
         ),
         const SizedBox(height: 10),
         Text(
