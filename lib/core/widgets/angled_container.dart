@@ -37,7 +37,12 @@ class AngledContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(borderWidth),
+      padding: EdgeInsets.only(
+        left: borderLeft ? borderWidth : 0,
+        right: borderRight ? borderWidth : 0,
+        top: borderTop ? borderWidth : 0,
+        bottom: borderBottom ? borderWidth : 0,
+      ),
       child: CustomPaint(
         painter: CustomAngledPainter(
           inset: borderInset,

@@ -21,6 +21,7 @@ class SideMenu extends StatelessWidget {
     return AngledContainer(
       borderRight: true,
       borderColor: Colors.grey,
+      borderWidth: 2,
       angleBottomLeft: false,
       angleTopLeft: false,
       gradient: const LinearGradient(
