@@ -9,10 +9,11 @@ class SideMenu extends StatelessWidget {
     this.gradient,
     this.color,
     this.footer,
+    this.slim = false,
   });
   final List<Widget> children;
+  final bool slim;
   final Widget? footer;
-
   final Gradient? gradient;
   final Color? color;
   final EdgeInsets padding;
@@ -29,23 +30,26 @@ class SideMenu extends StatelessWidget {
         end: Alignment.bottomRight,
         colors: [Color.fromARGB(255, 30, 30, 30), Color.fromARGB(255, 6, 3, 3)],
       ),
-      child: SizedBox(
-        height: double.infinity,
-        width: 300,
-        child: Column(
-          children: [
-            Expanded(
-              child: ListView(
-                padding: padding,
-                children: children,
+      child: AnimatedSize(
+        duration: const Duration(milliseconds: 300),
+        child: SizedBox(
+          height: double.infinity,
+          width: slim ? 80 : 300,
+          child: Column(
+            children: [
+              Expanded(
+                child: ListView(
+                  padding: padding,
+                  children: children,
+                ),
               ),
-            ),
-            if (footer != null)
-              Padding(
-                padding: padding,
-                child: footer!,
-              )
-          ],
+              if (footer != null)
+                Padding(
+                  padding: padding,
+                  child: footer!,
+                )
+            ],
+          ),
         ),
       ),
     );

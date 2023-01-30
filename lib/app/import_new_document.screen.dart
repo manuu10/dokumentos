@@ -5,6 +5,8 @@ import 'package:dokumentos/core/widgets/angled_filepicker.dart';
 import 'package:dokumentos/core/widgets/angled_quill_editor.dart';
 import 'package:dokumentos/core/widgets/angled_tag_input.dart';
 import 'package:dokumentos/core/widgets/angled_text_field.dart';
+import 'package:dokumentos/model/document.dart';
+import 'package:dokumentos/model/document_tag.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -14,7 +16,7 @@ class ImportNewDocumentScreen extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final selectedTags = useState(<DocumentTag>[]);
+    final selectedTags = useState(<DocDingsTag>[]);
     final controller = useQuillController();
     final titleController = useTextEditingController();
     return Stack(
@@ -37,12 +39,7 @@ class ImportNewDocumentScreen extends HookWidget {
             ),
             const SizedBox(height: 20),
             AngledTagInput(
-              available: [
-                DocumentTag(color: Colors.yellow, title: "Rechnung"),
-                DocumentTag(color: Colors.red, title: "Lohnabrechnung"),
-                DocumentTag(color: Colors.green, title: "Versicherung"),
-                DocumentTag(color: Colors.blue, title: "Vertrag"),
-              ],
+              available: DocDings.tagList,
               selected: selectedTags.value,
               onTap: (tag) {
                 if (selectedTags.value

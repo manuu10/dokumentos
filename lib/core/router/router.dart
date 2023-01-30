@@ -1,6 +1,7 @@
 import 'package:dokumentos/app/import_new_document.screen.dart';
 import 'package:dokumentos/app/overview.screen.dart';
 import 'package:dokumentos/app/settings.screen.dart';
+import 'package:dokumentos/core/widgets/angled_container.dart';
 import 'package:dokumentos/home.screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -56,7 +57,18 @@ abstract class AppRouter {
       key: state.pageKey,
       child: child,
       transitionsBuilder: (context, animation, secondaryAnimation, child) =>
-          FadeTransition(opacity: animation, child: child),
+          SlideTransition(
+        position: animation.drive(
+          Tween<Offset>(
+            begin: const Offset(1, 0),
+            end: Offset.zero,
+          ).chain(CurveTween(curve: Curves.linear)),
+        ),
+        child: AngledContainer(
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+          child: child,
+        ),
+      ),
     );
   }
 }

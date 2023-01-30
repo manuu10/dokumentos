@@ -19,8 +19,10 @@ class AngledCornerButton extends HookWidget {
       Key? key,
       this.disableBackground = false,
       this.primaryColor})
-      : super(key: key);
-  final Widget child;
+      : assert(child != null || icon != null,
+            "Provide atleast a child or and icon to display"),
+        super(key: key);
+  final Widget? child;
   final Widget? icon;
 
   final VoidCallback? onTap;
@@ -71,13 +73,21 @@ class AngledCornerButton extends HookWidget {
           borderRight: true,
           child: Padding(
             padding: padding,
-            child: icon == null
-                ? child
-                : Row(
+            child: Builder(
+              builder: (context) {
+                if (icon != null && child != null) {
+                  return Row(
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [icon!, const SizedBox(width: 10), child],
-                  ),
+                    children: [icon!, const SizedBox(width: 10), child!],
+                  );
+                }
+                if (icon == null) {
+                  return child!;
+                }
+                return icon!;
+              },
+            ),
           ),
         ),
       ),

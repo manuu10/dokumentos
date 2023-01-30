@@ -14,16 +14,18 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final router = GoRouter.of(context);
+    const slim = true;
     return Scaffold(
       body: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           SideMenu(
+            slim: slim,
             footer: AngledCornerButton(
               primaryColor: Colors.grey,
               disableBackground: router.location != AppRouter.rSettings,
               icon: const Icon(FeatherIcons.settings),
-              child: const Text("Settings"),
+              child: slim ? null : const Text("Settings"),
               onTap: () => context.go(AppRouter.rSettings),
             ),
             children: [
@@ -33,14 +35,14 @@ class HomeScreen extends StatelessWidget {
                 icon: const Icon(FeatherIcons.plus),
                 connectTop: true,
                 onTap: () => context.go(AppRouter.rImportDoc),
-                child: const Text("Import new Document"),
+                child: slim ? null : const Text("Import new Document"),
               ),
               const SizedBox(height: 10),
               AngledCornerButton(
                 primaryColor: Colors.grey,
                 disableBackground: router.location != AppRouter.rMain,
                 icon: const Icon(FeatherIcons.home),
-                child: const Text("Home"),
+                child: slim ? null : const Text("Home"),
                 onTap: () => context.go(AppRouter.rMain),
               ),
             ],
