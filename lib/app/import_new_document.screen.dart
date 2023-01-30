@@ -1,3 +1,4 @@
+import 'package:dokumentos/core/buttons/angled_corner_button.dart';
 import 'package:dokumentos/core/hooks/use_quill_controller.dart';
 import 'package:dokumentos/core/widgets/angled_container.dart';
 import 'package:dokumentos/core/widgets/angled_filepicker.dart';
@@ -5,8 +6,8 @@ import 'package:dokumentos/core/widgets/angled_quill_editor.dart';
 import 'package:dokumentos/core/widgets/angled_tag_input.dart';
 import 'package:dokumentos/core/widgets/angled_text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:flutter_quill/flutter_quill.dart' as q;
 
 class ImportNewDocumentScreen extends HookWidget {
   const ImportNewDocumentScreen({super.key});
@@ -15,6 +16,7 @@ class ImportNewDocumentScreen extends HookWidget {
   Widget build(BuildContext context) {
     final selectedTags = useState(<DocumentTag>[]);
     final controller = useQuillController();
+    final titleController = useTextEditingController();
     return Stack(
       children: [
         ListView(
@@ -25,7 +27,7 @@ class ImportNewDocumentScreen extends HookWidget {
               style: Theme.of(context).textTheme.headlineLarge,
             ),
             const Divider(thickness: 3),
-            AngledTextField(),
+            AngledTextField(controller: titleController),
             const SizedBox(height: 20),
             Align(
               alignment: Alignment.centerLeft,
@@ -62,6 +64,16 @@ class ImportNewDocumentScreen extends HookWidget {
             AngledQuillEditor(controller: controller),
             const SizedBox(height: 100),
           ],
+        ),
+        const Align(
+          alignment: Alignment.bottomRight,
+          child: Padding(
+            padding: EdgeInsets.symmetric(vertical: 8, horizontal: 20),
+            child: AngledCornerButton(
+              icon: Icon(FeatherIcons.upload),
+              child: Text("Submit"),
+            ),
+          ),
         ),
       ],
     );
