@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 class AngledTextField extends StatefulWidget {
-  const AngledTextField({Key? key}) : super(key: key);
+  const AngledTextField({Key? key, this.controller}) : super(key: key);
+  final TextEditingController? controller;
 
   @override
   State<AngledTextField> createState() => _AngledTextFieldState();
@@ -29,6 +30,7 @@ class _AngledTextFieldState extends State<AngledTextField> {
       borderBottom: true,
       borderWidth: 3,
       child: TextField(
+        controller: widget.controller,
         focusNode: node,
         decoration: const InputDecoration(
           contentPadding: EdgeInsets.only(left: 20),
